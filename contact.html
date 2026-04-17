@@ -1,0 +1,713 @@
+# Output the complete updated contact.html content
+Contact_html_content = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – KaYu Media</title>
+  <link rel="canonical" href="https://kayumedia.netlify.app/contact.html"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --charcoal: #1c1a17;
+      --mid: #4a4640;
+      --muted: #9a9188;
+      --accent: #b5894a;
+      --accent-light: #d4a96a;
+      --border: rgba(180,160,120,0.25);
+      --google-blue: #4285F4;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--charcoal); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.25s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-cta {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.55rem 1.4rem; border: 1px solid var(--accent);
+      color: var(--accent); text-decoration: none; transition: all 0.25s;
+      background: var(--accent); color: #fff;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 10rem 6rem 5rem;
+      background: var(--charcoal);
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'CONTACT';
+      position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(6rem, 12vw, 14rem); font-weight: 600;
+      color: rgba(255,255,255,0.03); letter-spacing: 0.05em;
+      pointer-events: none; white-space: nowrap;
+    }
+    .page-header-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent-light); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .page-header-eyebrow::before {
+      content: ''; width: 2rem; height: 1px; background: var(--accent-light);
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 300;
+      color: var(--cream); line-height: 1.1;
+    }
+    .page-header h1 em { font-style: italic; color: var(--accent-light); }
+    .page-header-sub {
+      margin-top: 1.2rem;
+      font-size: 0.95rem; color: rgba(245,240,232,0.5);
+      font-weight: 300; max-width: 420px;
+    }
+
+    /* ── GOOGLE REVIEWS SECTION ── */
+    .reviews-section {
+      background: var(--cream);
+      padding: 5rem 6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .reviews-section .section-label {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center;
+      gap: 0.7rem;
+    }
+    .reviews-section .section-label::before {
+      content: ''; width: 2rem; height: 1px; background: var(--accent);
+    }
+    .reviews-section .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300;
+      line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .reviews-subtitle {
+      font-size: 0.9rem; color: var(--muted); font-weight: 300;
+    }
+    .google-rating-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.8rem;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+    }
+    .google-logo {
+      font-family: 'Product Sans', 'Jost', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+    }
+    .google-logo .g-blue { color: #4285F4; }
+    .google-logo .g-red { color: #EA4335; }
+    .google-logo .g-yellow { color: #FBBC05; }
+    .google-logo .g-green { color: #34A853; }
+    .rating-stars {
+      display: flex;
+      gap: 0.2rem;
+      color: #FFB400;
+      font-size: 1.1rem;
+    }
+    .rating-text {
+      font-size: 0.85rem;
+      color: var(--mid);
+      margin-left: 0.5rem;
+    }
+
+    /* EMBEDSOCIAL WIDGET - NOW ACTIVE */
+    .embedsocial-widget-container {
+      display: block;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      min-height: 400px;
+    }
+    .embedsocial-hashtag {
+      width: 100% !important;
+      min-height: 400px;
+      display: block !important;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .contact-body {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      min-height: 70vh;
+    }
+
+    /* LEFT PANEL */
+    .contact-info {
+      background: var(--cream);
+      padding: 5rem 4rem;
+      display: flex; flex-direction: column; gap: 3rem;
+    }
+    .info-block h3 {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+    }
+    .info-item {
+      display: flex; flex-direction: column; gap: 0.25rem;
+      margin-bottom: 1.2rem;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-label {
+      font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .info-value {
+      font-size: 1rem; color: var(--charcoal); font-weight: 300;
+    }
+    .info-value a {
+      color: var(--charcoal); text-decoration: none; transition: color 0.2s;
+    }
+    .info-value a:hover { color: var(--accent); }
+
+    .social-links { display: flex; flex-direction: column; gap: 0.8rem; }
+    .social-link {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.85rem; color: var(--mid); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .social-link:hover { color: var(--accent); }
+    .social-icon {
+      width: 32px; height: 32px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; transition: border-color 0.2s, background 0.2s;
+    }
+    .social-link:hover .social-icon {
+      border-color: var(--accent); background: var(--accent); color: #fff;
+    }
+
+    .availability-note {
+      margin-top: auto;
+      padding: 1.5rem;
+      background: var(--charcoal);
+      color: var(--cream);
+    }
+    .availability-note p {
+      font-size: 0.8rem; line-height: 1.7; color: rgba(245,240,232,0.65);
+    }
+    .availability-note strong {
+      display: block; font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.5rem;
+    }
+
+    /* RIGHT PANEL — FORM */
+    .contact-form-wrap {
+      background: var(--warm-white);
+      padding: 5rem 5rem;
+      border-left: 1px solid var(--border);
+    }
+    .form-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 300; line-height: 1.4;
+      margin-bottom: 2.5rem; color: var(--charcoal);
+    }
+    .form-intro em { font-style: italic; color: var(--accent); }
+
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    input, select, textarea {
+      background: transparent;
+      border: none; border-bottom: 1px solid var(--border);
+      padding: 0.7rem 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.92rem; font-weight: 300;
+      color: var(--charcoal);
+      outline: none; transition: border-color 0.25s;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9188' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      padding-right: 1.5rem;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-bottom-color: var(--accent);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(74,70,64,0.35); }
+    textarea { resize: vertical; min-height: 110px; padding-top: 0.7rem; }
+
+    .form-submit-row {
+      margin-top: 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      grid-column: 1 / -1;
+    }
+    .form-note {
+      font-size: 0.75rem; color: var(--muted); font-weight: 300;
+    }
+    .btn-submit {
+      padding: 1rem 3rem;
+      background: var(--charcoal); color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background 0.25s; position: relative; overflow: hidden;
+    }
+    .btn-submit:hover { background: var(--accent); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+    }
+
+    /* Success/Error messages */
+    .form-success {
+      display: none;
+      padding: 1.5rem 2rem;
+      background: rgba(181,137,74,0.08);
+      border-left: 3px solid var(--accent);
+      margin-top: 1.5rem;
+    }
+    .form-success p {
+      font-size: 0.9rem; color: var(--mid); font-weight: 300; line-height: 1.6;
+    }
+    .form-success strong { color: var(--accent); }
+
+    .form-error {
+      display: none;
+      padding: 1.5rem 2rem;
+      background: rgba(220,53,69,0.08);
+      border-left: 3px solid #dc3545;
+      margin-top: 1.5rem;
+    }
+    .form-error p {
+      font-size: 0.9rem; color: var(--mid); font-weight: 300; line-height: 1.6;
+    }
+    .form-error strong { color: #dc3545; }
+
+    /* Loading spinner */
+    .btn-submit.loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── BOTTOM MAP STRIP ── */
+    .location-strip {
+      background: var(--charcoal);
+      padding: 4rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem; flex-wrap: wrap;
+    }
+    .location-text { color: var(--cream); }
+    .location-text p {
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light); margin-bottom: 0.6rem;
+    }
+    .location-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300;
+    }
+    .location-text span {
+      font-size: 0.85rem; color: rgba(245,240,232,0.45); font-weight: 300;
+    }
+    .location-pin {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: rgba(245,240,232,0.4);
+      font-size: 0.82rem; font-weight: 300;
+    }
+    .pin-dot {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid rgba(181,137,74,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #141210; color: rgba(245,240,232,0.3);
+      padding: 2rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem; letter-spacing: 0.06em;
+    }
+    footer .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600; color: rgba(245,240,232,0.5);
+    }
+    footer .logo span { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page-header-eyebrow { animation: fadeUp 0.6s ease both 0.1s; }
+    .page-header h1      { animation: fadeUp 0.6s ease both 0.2s; }
+    .page-header-sub     { animation: fadeUp 0.6s ease both 0.35s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 8rem 2rem 3rem; }
+      .reviews-section { padding: 3rem 2rem; }
+      .reviews-header { flex-direction: column; align-items: flex-start; }
+      .contact-body { grid-template-columns: 1fr; }
+      .contact-info { padding: 3rem 2rem; }
+      .contact-form-wrap { padding: 3rem 2rem; border-left: none; border-top: 1px solid var(--border); }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .location-strip { padding: 3rem 2rem; }
+      footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://kayumedia.netlify.app/">Ka<span>Yu</span> Media</a>
+  <ul class="nav-links">
+    <li><a href="https://kayumedia.netlify.app/">Home</a></li>
+    <li><a href="https://kayumedia.netlify.app/#about">About</a></li>
+    <li><a href="https://kayumedia.netlify.app/#services">Services</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:kayumedia01@gmail.com">Book Now</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-header-eyebrow">KaYu Media</p>
+  <h1>Let's Create Something<br><em>Memorable</em></h1>
+  <p class="page-header-sub">Ready to book a photo or video session? Have a question? We'd love to hear from you.</p>
+</div>
+
+<!-- GOOGLE REVIEWS SECTION -->
+<section class="reviews-section">
+  <div class="reviews-header">
+    <div class="reviews-title-group">
+      <p class="section-label">Testimonials</p>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="reviews-subtitle">Real reviews from Google Business Profile</p>
+    </div>
+    <div class="google-rating-box">
+      <div class="google-logo">
+        <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+      </div>
+      <div class="rating-stars">★★★★★</div>
+      <span class="rating-text">5.0 · 12 reviews</span>
+    </div>
+  </div>
+
+  <!-- EMBEDSOCIAL GOOGLE REVIEWS WIDGET -->
+  <div class="embedsocial-widget-container" id="widgetContainer" style="display: block;">
+    <div class="embedsocial-hashtag" data-ref="2110881171bb267c0faaf66adaea0bd49bf80dbe">
+      <a class="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding" href="https://embedsocial.com/google-reviews-widget/" target="_blank" title="Embed Google reviews">
+        <img src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp" alt="EmbedSocial">
+        <div class="es-widget-branding-text">Embed Google reviews</div>
+      </a>
+    </div>
+    <script>
+      (function(d, s, id) {
+        var js;
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://embedsocial.com/cdn/ht.js";
+        js.onload = function() {
+          setTimeout(function() {
+            var widget = d.querySelector('.embedsocial-hashtag');
+            var hasRealContent = widget && widget.querySelectorAll('[class*="review"], [class*="feed-item"], [class*="card"]').length > 0;
+            if (hasRealContent) {
+              d.getElementById('widgetContainer').classList.add('loaded');
+            }
+          }, 4000);
+        };
+        js.onerror = function() { /* fallback stays visible */ };
+        d.getElementsByTagName("head")[0].appendChild(js);
+      }(document, "script", "EmbedSocialHashtagScript"));
+    </script>
+  </div>
+
+  <div class="reviews-cta">
+    <a href="https://g.page/r/CaYuMedia/review" target="_blank">Read All Reviews on Google →</a>
+  </div>
+</section>
+
+<!-- CONTACT BODY -->
+<div class="contact-body">
+
+  <!-- LEFT: INFO -->
+  <div class="contact-info">
+
+    <div class="info-block">
+      <h3>Reach Us Directly</h3>
+      <div class="info-item">
+        <span class="info-label">Phone</span>
+        <span class="info-value"><a href="tel:0739452021">073 945 2021</a></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Whatsapp / Call</span>
+        <span class="info-value"><a href="tel:0710059685">071 005 9685</a></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Email</span>
+        <span class="info-value"><a href="mailto:kayumedia01@gmail.com">kAYUMEDIA01@GMAIL.COM</a></span>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <h3>Follow Our Work</h3>
+      <div class="social-links">
+        <a class="social-link" href="https://instagram.com/kayumedia01" target="_blank">
+          <div class="social-icon">📸</div>
+          @kayumedia01
+        </a>
+      </div>
+    </div>
+
+    <div class="availability-note">
+      <strong>📅 Booking Info</strong>
+      <p>We recommend booking at least 2–3 weeks in advance for events, portrait sessions, and videography projects. For corporate enquiries, contact us as early as possible to secure your preferred date.</p>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="contact-form-wrap">
+    <p class="form-intro">Tell us about your<br><em>moment to capture.</em></p>
+
+    <form class="form-grid" id="contactForm" action="https://formspree.io/f/mjgjybkk" method="POST">
+
+      <input type="hidden" name="_subject" value="New KaYu Media Enquiry"/>
+      <input type="hidden" name="_redirect" value="https://kayumedia.netlify.app/contact.html?submitted=true"/>
+
+      <div class="form-group">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="first_name" placeholder="Your first name" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="last_name" placeholder="Your last name" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="e.g. 082 000 0000"/>
+      </div>
+
+      <div class="form-group full">
+        <label for="service">Type of Session</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select a service...</option>
+          <option value="Event Photography">Event Photography</option>
+          <option value="Family & Lifestyle">Family & Lifestyle</option>
+          <option value="Portrait Session">Portrait Session</option>
+          <option value="Corporate Solutions">Corporate Solutions</option>
+          <option value="Videography & Content Creation">Videography & Content Creation</option>
+          <option value="Other / Not Sure Yet">Other / Not Sure Yet</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label for="date">Preferred Date</label>
+        <input type="date" id="date" name="preferred_date"/>
+      </div>
+
+      <div class="form-group full">
+        <label for="message">Tell Us More</label>
+        <textarea id="message" name="message" placeholder="Share details about your event, location, number of people, or anything else we should know..."></textarea>
+      </div>
+
+      <div class="form-submit-row">
+        <p class="form-note">We'll get back to you within 24 hours.</p>
+        <button type="submit" class="btn-submit" id="submitBtn">Send Enquiry →</button>
+      </div>
+
+    </form>
+
+    <div class="form-success" id="successMsg">
+      <p><strong>Thank you for reaching out!</strong> We've received your enquiry and will be in touch within 24 hours. In the meantime, feel free to follow us on Instagram <strong>@kayumedia01</strong>.</p>
+    </div>
+
+    <div class="form-error" id="errorMsg">
+      <p><strong>Oops!</strong> There was a problem submitting your form. Please try again or email us directly at <a href="mailto:kayumedia01@gmail.com">kayumedia01@gmail.com</a>.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- LOCATION STRIP -->
+<div class="location-strip">
+  <div class="location-text">
+    <p>Where to Find Us</p>
+    <h3>Durban, South Africa</h3>
+    <span>Available for shoots across KwaZulu-Natal and beyond</span>
+  </div>
+  <div class="location-pin">
+    <div class="pin-dot">📍</div>
+    Based in Durban · Shooting across KZN
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Ka<span>Yu</span> Media</div>
+  <div>© 2025 KaYu Media (Pty) Ltd · Reg. 2025/880366/07 · Durban, SA</div>
+  <div>Capturing Moments, Creating Memories</div>
+</footer>
+
+<!-- EMBEDSOCIAL WIDGET SCRIPT -->
+<script>
+  (function(d, s, id) {
+    var js;
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://embedsocial.com/cdn/ht.js";
+    js.onload = function() {
+      setTimeout(function() {
+        var widget = d.querySelector('.embedsocial-hashtag');
+        var hasRealContent = widget && widget.querySelectorAll('[class*="review"], [class*="feed-item"], [class*="card"]').length > 0;
+        if (hasRealContent) {
+          d.getElementById('widgetContainer').classList.add('loaded');
+        }
+      }, 4000);
+    };
+    js.onerror = function() { /* fallback stays visible */ };
+    d.getElementsByTagName("head")[0].appendChild(js);
+  }(document, "script", "EmbedSocialHashtagScript"));
+</script>
+
+<script>
+  // AJAX Form Submission for Formspree
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    successMsg.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const formData = new FormData(form);
+
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        form.reset();
+        successMsg.style.display = 'block';
+        successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Form error:', error);
+      errorMsg.style.display = 'block';
+      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      submitBtn.textContent = 'Send Enquiry →';
+    }
+  });
+
+  if (window.location.search.includes('submitted=true')) {
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('contactForm').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>'''
+
+print("="*60)
+print("COMPLETE UPDATED CONTACT.HTML")
+print("="*60)
+print(Contact_html_content)

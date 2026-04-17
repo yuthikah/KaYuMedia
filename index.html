@@ -1,0 +1,932 @@
+
+# Create updated index.html with vibrant circle, better mobile order, and improved badge
+
+index_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KaYu Media – Capturing Moments, Creating Memories</title>
+  <link rel="canonical" href="https://kayumedia.netlify.app/"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --charcoal: #1c1a17;
+      --mid: #4a4640;
+      --muted: #9a9188;
+      --accent: #b5894a;
+      --accent-light: #d4a96a;
+      --border: rgba(180,160,120,0.25);
+      --gold-gradient: linear-gradient(135deg, #d4a96a 0%, #b5894a 50%, #9a7b3d 100%);
+      --sunset-gradient: linear-gradient(135deg, #e8c088 0%, #d4a96a 30%, #b5894a 70%, #8b6914 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: rgba(250,248,244,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--charcoal); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.55rem 1.4rem; border: 1px solid var(--accent);
+      color: var(--accent); text-decoration: none; transition: all 0.25s;
+    }
+    .nav-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 80px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--warm-white) 60%, var(--cream) 100%);
+      position: relative;
+    }
+
+    /* Decorative background elements */
+    .hero-bg-pattern {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(181,137,74,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(181,137,74,0.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 6rem;
+      position: relative; max-width: 600px;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.6rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 2.5rem; height: 1px; background: var(--accent);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.2rem); font-weight: 300;
+      line-height: 1.08; letter-spacing: -0.01em;
+      margin-bottom: 1.8rem; color: var(--charcoal);
+    }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 0.95rem; line-height: 1.8; color: var(--mid);
+      max-width: 400px; margin-bottom: 2.8rem;
+      font-weight: 300;
+    }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.2rem; background: var(--charcoal); color: var(--cream);
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s;
+    }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline {
+      padding: 0.9rem 2.2rem; border: 1px solid var(--charcoal); color: var(--charcoal);
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Hero Visual Side - Elegant Minimal Composition */
+    .hero-visual {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .visual-composition {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      height: 600px;
+    }
+
+    /* SVG canvas for the elegant visual */
+    .elegant-svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      height: 420px;
+      overflow: visible;
+    }
+
+    /* Floating badge */
+    .floating-badge {
+      position: absolute;
+      bottom: 14%;
+      right: 0;
+      background: rgba(250,248,244,0.96);
+      backdrop-filter: blur(12px);
+      color: var(--charcoal);
+      padding: 1rem 1.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 30px rgba(28,26,23,0.08);
+      border: 1px solid var(--border);
+      z-index: 10;
+    }
+
+    .floating-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+      color: var(--accent);
+    }
+
+    .stars { color: #c9973f; letter-spacing: 2px; }
+
+    /* ── SVG Animation keyframes ── */
+    @keyframes arc-spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes arc-spin-reverse {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-360deg); }
+    }
+    @keyframes breathe-ring {
+      0%, 100% { stroke-opacity: 0.6; }
+      50%       { stroke-opacity: 0.9; }
+    }
+    @keyframes crosshair-fade {
+      0%, 100% { opacity: 0.2; }
+      50%       { opacity: 0.45; }
+    }
+    @keyframes center-pulse {
+      0%, 100% { r: 6; opacity: 0.9; }
+      50%       { r: 7.5; opacity: 1; }
+    }
+
+    .arc-ring-1 { transform-origin: 210px 210px; animation: arc-spin-slow 32s linear infinite; }
+    .arc-ring-2 { transform-origin: 210px 210px; animation: arc-spin-reverse 20s linear infinite; }
+    .arc-ring-3 { transform-origin: 210px 210px; animation: arc-spin-slow 55s linear infinite; }
+    .main-ring   { animation: breathe-ring 5s ease-in-out infinite; }
+    .crosshair-group { animation: crosshair-fade 5s ease-in-out infinite; }
+    .center-dot  { transform-origin: 210px 210px; animation: center-pulse 4s ease-in-out infinite; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 7rem 6rem; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .section-label::before {
+      content: ''; width: 2rem; height: 1px; background: var(--accent);
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+      font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--charcoal); color: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    #about .section-label { color: var(--accent-light); }
+    #about .section-label::before { background: var(--accent-light); }
+    #about .section-title { color: var(--cream); }
+    .about-body {
+      font-size: 0.95rem; line-height: 1.9; color: rgba(245,240,232,0.75);
+      font-weight: 300; margin-bottom: 2rem;
+    }
+    .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .about-card {
+      padding: 1.8rem; border: 1px solid rgba(181,137,74,0.2);
+      background: rgba(255,255,255,0.03);
+    }
+    .about-card-icon {
+      font-size: 1.4rem; margin-bottom: 0.8rem;
+    }
+    .about-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; color: var(--accent-light);
+      margin-bottom: 0.5rem;
+    }
+    .about-card p {
+      font-size: 0.82rem; line-height: 1.7; color: rgba(245,240,232,0.55);
+    }
+    .about-right {
+      position: relative;
+    }
+    .about-quote-block {
+      border-left: 2px solid var(--accent);
+      padding: 2.5rem 2.5rem 2.5rem 3rem;
+      background: rgba(181,137,74,0.06);
+    }
+    .about-quote-block blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-style: italic; font-weight: 300;
+      line-height: 1.5;
+      color: var(--cream); margin-bottom: 1.2rem;
+    }
+    .about-quote-block cite {
+      font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); font-style: normal;
+    }
+    .founders {
+      margin-top: 2rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 2rem;
+    }
+    .founder {
+      font-size: 0.8rem; color: rgba(245,240,232,0.55);
+    }
+    .founder strong {
+      display: block; color: var(--cream); font-weight: 500;
+      margin-bottom: 0.2rem; letter-spacing: 0.04em;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--cream); }
+    .services-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: end; margin-bottom: 4rem;
+    }
+    .services-intro {
+      font-size: 0.95rem; line-height: 1.8; color: var(--mid); font-weight: 300;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+    }
+    .service-card {
+      background: var(--cream); padding: 2.5rem 1.5rem;
+      position: relative; transition: background 0.3s;
+      cursor: default;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card:hover { background: var(--charcoal); }
+    .service-card:hover .service-num,
+    .service-card:hover .service-name,
+    .service-card:hover .service-tags { color: var(--cream); }
+    .service-card:hover .service-tags { opacity: 0.5; }
+    .service-card:hover .service-icon { color: var(--accent-light); }
+    .service-num {
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      color: var(--muted); margin-bottom: 1.5rem; transition: color 0.3s;
+    }
+    .service-icon {
+      font-size: 1.6rem; margin-bottom: 1.2rem; color: var(--accent);
+      transition: color 0.3s;
+    }
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; margin-bottom: 0.8rem;
+      transition: color 0.3s;
+      line-height: 1.3;
+    }
+    .service-tags {
+      font-size: 0.75rem; line-height: 1.9; color: var(--muted);
+      transition: color 0.3s;
+      margin-top: auto;
+    }
+
+    /* Videography card - consistent with others */
+    .active-badge-inline {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--border);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+    .service-card.videography:hover .active-badge-inline {
+      border-color: rgba(212,169,106,0.4);
+      color: var(--accent-light);
+    }
+
+    /* ── GOOGLE REVIEWS ── */
+    #reviews {
+      background: var(--warm-white);
+      padding: 7rem 6rem;
+    }
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .reviews-title-group {
+      max-width: 500px;
+    }
+    #reviews .section-label {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center;
+      gap: 0.7rem;
+    }
+    #reviews .section-label::before {
+      content: ''; width: 2rem; height: 1px; background: var(--accent);
+    }
+    #reviews .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+      font-weight: 300; line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .reviews-subtitle {
+      font-size: 0.9rem; color: var(--muted); font-weight: 300;
+    }
+    .google-rating-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.8rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+    }
+    .google-logo {
+      font-family: 'Product Sans', 'Jost', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+    }
+    .google-logo .g-blue { color: #4285F4; }
+    .google-logo .g-red { color: #EA4335; }
+    .google-logo .g-yellow { color: #FBBC05; }
+    .google-logo .g-green { color: #34A853; }
+    .rating-stars {
+      display: flex;
+      gap: 0.2rem;
+      color: #FFB400;
+      font-size: 1.1rem;
+    }
+    .rating-text {
+      font-size: 0.85rem;
+      color: var(--mid);
+      margin-left: 0.5rem;
+    }
+
+    /* EMBEDSOCIAL WIDGET - NOW ACTIVE */
+    .embedsocial-widget-container {
+      display: block;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      min-height: 400px;
+    }
+    .embedsocial-hashtag {
+      width: 100% !important;
+      min-height: 400px;
+      display: block !important;
+    }
+
+    /* ── WHY ── */
+    #why {
+      background: var(--cream);
+      display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start;
+    }
+    .why-list { display: flex; flex-direction: column; gap: 0; }
+    .why-item {
+      padding: 2rem 0; border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start;
+    }
+    .why-item:first-child { border-top: 1px solid var(--border); }
+    .why-num {
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      color: var(--accent); padding-top: 0.1rem;
+    }
+    .why-item h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; margin-bottom: 0.4rem;
+    }
+    .why-item p { font-size: 0.85rem; line-height: 1.7; color: var(--mid); font-weight: 300; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--charcoal); color: var(--cream);
+      text-align: center; padding: 7rem 4rem;
+    }
+    #contact .section-label { justify-content: center; color: var(--accent-light); }
+    #contact .section-label::before { background: var(--accent-light); }
+    #contact .section-title { color: var(--cream); max-width: 600px; margin: 0 auto 1.5rem; }
+    .contact-sub {
+      font-size: 0.95rem; color: rgba(245,240,232,0.55); margin-bottom: 3.5rem;
+      font-weight: 300;
+    }
+    .contact-grid {
+      display: flex; justify-content: center;
+      gap: 3rem; flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+    .contact-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.4rem;
+    }
+    .contact-item-label {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact-item-value {
+      font-size: 0.95rem; color: var(--cream); font-weight: 300;
+    }
+    .contact-item-value a {
+      color: var(--accent-light); text-decoration: none;
+    }
+    .contact-divider {
+      width: 1px; height: 50px; background: rgba(255,255,255,0.1);
+      align-self: center;
+    }
+    .contact-cta {
+      display: inline-block;
+      padding: 1rem 3rem; border: 1px solid var(--accent);
+      color: var(--accent); font-size: 0.78rem; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .contact-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #141210; color: rgba(245,240,232,0.3);
+      padding: 2rem 6rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem; letter-spacing: 0.06em;
+    }
+    footer .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600; color: rgba(245,240,232,0.5);
+    }
+    footer .logo span { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow  { animation: fadeUp 0.7s ease both; animation-delay: 0.1s; }
+    .hero-title    { animation: fadeUp 0.7s ease both; animation-delay: 0.25s; }
+    .hero-sub      { animation: fadeUp 0.7s ease both; animation-delay: 0.4s; }
+    .hero-buttons  { animation: fadeUp 0.7s ease both; animation-delay: 0.55s; }
+
+    /* animations handled in SVG section above */
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1200px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { 
+        min-height: auto; 
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+      }
+      .hero-text { padding: 3rem 2rem; }
+      .hero-visual { 
+        padding: 2rem;
+        min-height: 420px;
+      }
+      .visual-composition {
+        max-width: 340px;
+        height: 380px;
+      }
+      .elegant-svg {
+        width: 300px;
+        height: 300px;
+      }
+      section { padding: 5rem 2rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      #reviews { padding: 5rem 2rem; }
+      .reviews-header { flex-direction: column; align-items: flex-start; }
+      #why { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr; }
+      .contact-divider { display: none; }
+      .hero-visual { min-height: 340px; }
+      .visual-composition {
+        max-width: 280px;
+        height: 300px;
+      }
+      .elegant-svg {
+        width: 260px;
+        height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://kayumedia.netlify.app/">Ka<span>Yu</span> Media</a>
+  <ul class="nav-links">
+    <li><a href="https://kayumedia.netlify.app/#about">About</a></li>
+    <li><a href="https://kayumedia.netlify.app/#services">Services</a></li>
+    <li><a href="https://kayumedia.netlify.app/#reviews">Reviews</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Book a Session</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-text">
+    <p class="hero-eyebrow">Durban, South Africa</p>
+    <h1 class="hero-title">
+      Capturing<br>
+      <em>Moments,</em><br>
+      Creating<br>
+      Memories
+    </h1>
+    <p class="hero-sub">
+      Professional photography and videography that tells your story — from intimate family portraits to vibrant corporate events. Natural, timeless imagery crafted with passion.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="https://kayumedia.netlify.app/#services">Our Services</a>
+      <a class="btn-outline" href="contact.html">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="visual-composition">
+
+      <!-- Elegant SVG composition -->
+      <svg class="elegant-svg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldArc" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4a96a" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#9a7b3d" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="goldArc2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#b5894a" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#d4a96a" stop-opacity="0.1"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Outermost ghost ring -->
+        <circle cx="210" cy="210" r="195" stroke="rgba(181,137,74,0.1)" stroke-width="1"/>
+
+        <!-- Spinning arc ring 3 — very faint large -->
+        <g class="arc-ring-3">
+          <path d="M210,28 A182,182 0 0,1 392,210" stroke="rgba(181,137,74,0.18)" stroke-width="1" stroke-linecap="round"/>
+          <path d="M210,392 A182,182 0 0,1 28,210" stroke="rgba(181,137,74,0.12)" stroke-width="1" stroke-linecap="round"/>
+        </g>
+
+        <!-- Spinning arc ring 1 — main gold arc, prominent -->
+        <g class="arc-ring-1">
+          <path d="M210,55 A155,155 0 0,1 365,210" stroke="url(#goldArc)" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M210,365 A155,155 0 0,1 55,210" stroke="rgba(181,137,74,0.25)" stroke-width="1" stroke-linecap="round"/>
+          <!-- tick mark on arc -->
+          <line x1="210" y1="55" x2="210" y2="43" stroke="#d4a96a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+        </g>
+
+        <!-- Spinning arc ring 2 — inner counter-rotate -->
+        <g class="arc-ring-2">
+          <path d="M210,92 A118,118 0 0,1 328,210" stroke="url(#goldArc2)" stroke-width="1" stroke-linecap="round"/>
+          <path d="M92,210 A118,118 0 0,1 210,328" stroke="rgba(212,169,106,0.2)" stroke-width="1" stroke-linecap="round"/>
+          <!-- small tick -->
+          <line x1="210" y1="92" x2="210" y2="82" stroke="#b5894a" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+        </g>
+
+        <!-- Main static ring — breathes -->
+        <circle class="main-ring" cx="210" cy="210" r="155" stroke="rgba(181,137,74,0.35)" stroke-width="0.75"/>
+
+        <!-- Crosshair lines -->
+        <g class="crosshair-group">
+          <line x1="210" y1="80" x2="210" y2="140" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
+          <line x1="210" y1="280" x2="210" y2="340" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
+          <line x1="80" y1="210" x2="140" y2="210" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
+          <line x1="280" y1="210" x2="340" y2="210" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
+        </g>
+
+        <!-- Cardinal tick marks on main ring -->
+        <g opacity="0.4">
+          <line x1="210" y1="55" x2="210" y2="70" stroke="#b5894a" stroke-width="1"/>
+          <line x1="365" y1="210" x2="350" y2="210" stroke="#b5894a" stroke-width="1"/>
+          <line x1="210" y1="365" x2="210" y2="350" stroke="#b5894a" stroke-width="1"/>
+          <line x1="55" y1="210" x2="70" y2="210" stroke="#b5894a" stroke-width="1"/>
+        </g>
+
+        <!-- Minor tick marks -->
+        <g opacity="0.2">
+          <line x1="320" y1="100" x2="312" y2="108" stroke="#b5894a" stroke-width="0.75"/>
+          <line x1="320" y1="320" x2="312" y2="312" stroke="#b5894a" stroke-width="0.75"/>
+          <line x1="100" y1="320" x2="108" y2="312" stroke="#b5894a" stroke-width="0.75"/>
+          <line x1="100" y1="100" x2="108" y2="108" stroke="#b5894a" stroke-width="0.75"/>
+        </g>
+
+        <!-- Center dot -->
+        <circle class="center-dot" cx="210" cy="210" r="6" fill="#b5894a" opacity="0.85"/>
+        <circle cx="210" cy="210" r="16" stroke="rgba(181,137,74,0.3)" stroke-width="1" fill="none"/>
+        <circle cx="210" cy="210" r="30" stroke="rgba(181,137,74,0.15)" stroke-width="0.75" fill="none"/>
+      </svg>
+
+    </div>
+
+    <div class="floating-badge">
+      <strong>5.0 <span class="stars">★★★★★</span></strong>
+      12 Google Reviews
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <p class="section-label">About Us</p>
+    <h2 class="section-title">A Passion for Storytelling Through the Lens</h2>
+    <p class="about-body">
+      KaYu Media is a Durban-based photography and videography service dedicated to capturing life's most meaningful moments. Founded with a shared desire to preserve special occasions through powerful imagery and motion, we deliver an experience that is relaxed, professional, and memorable from start to finish.
+    </p>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">🎯</div>
+        <h4>Our Vision</h4>
+        <p>To be a trusted media brand known for capturing authentic moments families and businesses will cherish for years.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">✦</div>
+        <h4>Our Mission</h4>
+        <p>To preserve meaningful moments, celebrate life's special occasions, and create lasting visual memories.</p>
+      </div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-quote-block">
+      <blockquote>"Creating images and films that tell your story."</blockquote>
+      <cite>KaYu Media – Est. 2025</cite>
+    </div>
+    <div class="founders">
+      <div class="founder">
+        <strong>Kamlan Pillay</strong>
+        Co-Founder & Photographer
+      </div>
+      <div class="founder">
+        <strong>Yuthika Hira</strong>
+        Co-Founder & Photographer
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div>
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <p class="services-intro">
+      From intimate family portraits to large-scale corporate events and cinematic videography, we bring the same commitment to quality, patience, and creative vision to every project.
+    </p>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <p class="service-num">01</p>
+      <div class="service-icon">🎉</div>
+      <h3 class="service-name">Event Photography</h3>
+      <p class="service-tags">Birthdays · Parties<br>Celebrations<br>Community Events</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">02</p>
+      <div class="service-icon">👨‍👩‍👧</div>
+      <h3 class="service-name">Family & Lifestyle</h3>
+      <p class="service-tags">Family Sessions<br>Children Photography<br>Maternity</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">03</p>
+      <div class="service-icon">🎞</div>
+      <h3 class="service-name">Portrait Sessions</h3>
+      <p class="service-tags">Individual Portraits<br>Couple Shoot<br>Personal Branding</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">04</p>
+      <div class="service-icon">🏢</div>
+      <h3 class="service-name">Corporate Solutions</h3>
+      <p class="service-tags">Corporate Events<br>Team & Staff Headshots<br>Brand Content</p>
+    </div>
+
+    <div class="service-card videography">
+      <div class="active-badge-inline">Now Available</div>
+      <p class="service-num">05</p>
+      <div class="service-icon">🎬</div>
+      <h3 class="service-name">Videography & Content Creation</h3>
+      <p class="service-tags">Cinematic event highlights<br>Brand stories<br>Social media content<br>Motion that brings your vision to life</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- GOOGLE REVIEWS SECTION -->
+<section id="reviews">
+  <div class="reviews-header">
+    <div class="reviews-title-group">
+      <p class="section-label">Testimonials</p>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="reviews-subtitle">Real reviews from Google Business Profile</p>
+    </div>
+    <div class="google-rating-box">
+      <div class="google-logo">
+        <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+      </div>
+      <div class="rating-stars">★★★★★</div>
+      <span class="rating-text">5.0 · 12 reviews</span>
+    </div>
+  </div>
+
+  <!-- EMBEDSOCIAL GOOGLE REVIEWS WIDGET -->
+  <div class="embedsocial-widget-container" id="widgetContainer" style="display: block;">
+    <div class="embedsocial-hashtag" data-ref="2110881171bb267c0faaf66adaea0bd49bf80dbe">
+      <a class="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding" href="https://embedsocial.com/google-reviews-widget/" target="_blank" title="Embed Google reviews">
+        <img src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp" alt="EmbedSocial">
+        <div class="es-widget-branding-text">Embed Google reviews</div>
+      </a>
+    </div>
+    <script>
+      (function(d, s, id) {
+        var js;
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://embedsocial.com/cdn/ht.js";
+        d.getElementsByTagName("head")[0].appendChild(js);
+      }(document, "script", "EmbedSocialHashtagScript"));
+    </script>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div>
+    <p class="section-label">Why Choose Us</p>
+    <h2 class="section-title">What Sets KaYu Apart</h2>
+  </div>
+  <div class="why-list">
+    <div class="why-item">
+      <span class="why-num">01</span>
+      <div>
+        <h4>Professional & Friendly</h4>
+        <p>We create a comfortable, client-focused experience from the first inquiry to final delivery, so you can relax and be yourself.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-num">02</span>
+      <div>
+        <h4>Patience First</h4>
+        <p>Especially skilled with children and large families — we take the time needed to get that perfect, natural shot.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-num">03</span>
+      <div>
+        <h4>Timeless Quality</h4>
+        <p>High-end editing and meticulous attention to detail ensure every image and video is something you'll be proud to display for decades.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-num">04</span>
+      <div>
+        <h4>Durban-Based, Locally Trusted</h4>
+        <p>Rooted in Durban's vibrant community, we understand local culture and bring that authenticity to every shoot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get in Touch</p>
+  <h2 class="section-title">Ready to Capture Your Story?</h2>
+  <p class="contact-sub">Based in Durban, South Africa · Available for bookings across the region</p>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <span class="contact-item-label">Phone</span>
+      <span class="contact-item-value">
+        <a href="tel:0739452021">073 945 2021</a>
+      </span>
+      <span class="contact-item-value">
+        <a href="tel:0710059685">071 005 9685</a>
+      </span>
+    </div>
+    <div class="contact-divider"></div>
+    <div class="contact-item">
+      <span class="contact-item-label">Email</span>
+      <span class="contact-item-value">
+        <a href="mailto:kayumedia01@gmail.com">kayumedia01@gmail.com</a>
+      </span>
+    </div>
+    <div class="contact-divider"></div>
+    <div class="contact-item">
+      <span class="contact-item-label">Instagram</span>
+      <span class="contact-item-value">
+        <a href="https://instagram.com/kayumedia01" target="_blank">@kayumedia01</a>
+      </span>
+    </div>
+    <div class="contact-divider"></div>
+    <div class="contact-item">
+      <span class="contact-item-label">Location</span>
+      <span class="contact-item-value">Durban, South Africa</span>
+    </div>
+  </div>
+  <a class="contact-cta" href="contact.html">Book a Session</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Ka<span>Yu</span> Media</div>
+  <div>© 2025 KaYu Media (Pty) Ltd · Reg. 2025/880366/07 · Durban, SA</div>
+  <div>Capturing Moments, Creating Memories</div>
+</footer>
+
+<!-- EMBEDSOCIAL WIDGET SCRIPT -->
+<script>
+  (function(d, s, id) {
+    var js;
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://embedsocial.com/cdn/ht.js";
+    js.onload = function() {
+      setTimeout(function() {
+        var widget = d.querySelector('.embedsocial-hashtag');
+        var hasRealContent = widget && widget.querySelectorAll('[class*="review"], [class*="feed-item"], [class*="card"]').length > 0;
+        if (hasRealContent) {
+          d.getElementById('widgetContainer').classList.add('loaded');
+          d.getElementById('reviewsGrid').style.display = 'none';
+        }
+      }, 4000);
+    };
+    js.onerror = function() { /* fallback stays visible */ };
+    d.getElementsByTagName("head")[0].appendChild(js);
+  }(document, "script", "EmbedSocialHashtagScript"));
+</script>
+
+</body>
+</html>
