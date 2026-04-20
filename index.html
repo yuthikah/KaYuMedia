@@ -1,7 +1,4 @@
-
-# Create updated index.html with vibrant circle, better mobile order, and improved badge
-
-index_html = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -124,6 +121,47 @@ index_html = '''<!DOCTYPE html>
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
+    .hero-work-strip {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+    }
+    .btn-view-work {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.6rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+      box-shadow: 0 4px 18px rgba(181,137,74,0.35);
+    }
+    .btn-view-work:hover {
+      background: #9a7b3d;
+      transform: translateY(-1px);
+    }
+    .view-work-icon { display: flex; align-items: center; }
+    .view-work-arrow {
+      font-size: 1rem;
+      font-weight: 300;
+      opacity: 0.85;
+    }
+    .hero-work-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
     /* Hero Visual Side - Elegant Minimal Composition */
     .hero-visual {
       position: relative;
@@ -167,6 +205,14 @@ index_html = '''<!DOCTYPE html>
       box-shadow: 0 8px 30px rgba(28,26,23,0.08);
       border: 1px solid var(--border);
       z-index: 10;
+      text-decoration: none;
+      cursor: pointer;
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+    }
+    .floating-badge:hover {
+      box-shadow: 0 12px 40px rgba(181,137,74,0.25);
+      transform: translateY(-2px);
+      border-color: rgba(181,137,74,0.5);
     }
 
     .floating-badge strong {
@@ -607,88 +653,137 @@ index_html = '''<!DOCTYPE html>
       <a class="btn-primary" href="https://kayumedia.netlify.app/#services">Our Services</a>
       <a class="btn-outline" href="contact.html">Get in Touch</a>
     </div>
+
+    <div class="hero-work-strip">
+      <a class="btn-view-work" href="https://www.instagram.com/kayumedia01" target="_blank">
+        <span class="view-work-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </span>
+        View Our Work
+        <span class="view-work-arrow">↗</span>
+      </a>
+      <span class="hero-work-note">See our latest shoots &amp; projects</span>
+    </div>
   </div>
 
   <div class="hero-visual">
     <div class="visual-composition">
 
-      <!-- Elegant SVG composition -->
+      <!-- Media-themed SVG composition -->
       <svg class="elegant-svg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="goldArc" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#d4a96a" stop-opacity="0.9"/>
             <stop offset="100%" stop-color="#9a7b3d" stop-opacity="0.2"/>
           </linearGradient>
-          <linearGradient id="goldArc2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#b5894a" stop-opacity="0.8"/>
-            <stop offset="100%" stop-color="#d4a96a" stop-opacity="0.1"/>
-          </linearGradient>
+          <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#d4a96a" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#d4a96a" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
         </defs>
 
-        <!-- Outermost ghost ring -->
-        <circle cx="210" cy="210" r="195" stroke="rgba(181,137,74,0.1)" stroke-width="1"/>
+        <!-- Background glow -->
+        <circle cx="210" cy="210" r="160" fill="url(#centerGlow)"/>
 
-        <!-- Spinning arc ring 3 — very faint large -->
+        <!-- Outer ghost ring -->
+        <circle cx="210" cy="210" r="195" stroke="rgba(181,137,74,0.08)" stroke-width="1"/>
+
+        <!-- Outer orbit ring (slow spin) -->
         <g class="arc-ring-3">
-          <path d="M210,28 A182,182 0 0,1 392,210" stroke="rgba(181,137,74,0.18)" stroke-width="1" stroke-linecap="round"/>
-          <path d="M210,392 A182,182 0 0,1 28,210" stroke="rgba(181,137,74,0.12)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="210" cy="210" r="182" stroke="rgba(181,137,74,0.12)" stroke-width="0.75" stroke-dasharray="8 6"/>
         </g>
 
-        <!-- Spinning arc ring 1 — main gold arc, prominent -->
-        <g class="arc-ring-1">
-          <path d="M210,55 A155,155 0 0,1 365,210" stroke="url(#goldArc)" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M210,365 A155,155 0 0,1 55,210" stroke="rgba(181,137,74,0.25)" stroke-width="1" stroke-linecap="round"/>
-          <!-- tick mark on arc -->
-          <line x1="210" y1="55" x2="210" y2="43" stroke="#d4a96a" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-        </g>
+        <!-- Main orbit ring -->
+        <circle class="main-ring" cx="210" cy="210" r="155" stroke="rgba(181,137,74,0.3)" stroke-width="1"/>
 
-        <!-- Spinning arc ring 2 — inner counter-rotate -->
+        <!-- Inner orbit ring (counter spin) -->
         <g class="arc-ring-2">
-          <path d="M210,92 A118,118 0 0,1 328,210" stroke="url(#goldArc2)" stroke-width="1" stroke-linecap="round"/>
-          <path d="M92,210 A118,118 0 0,1 210,328" stroke="rgba(212,169,106,0.2)" stroke-width="1" stroke-linecap="round"/>
-          <!-- small tick -->
-          <line x1="210" y1="92" x2="210" y2="82" stroke="#b5894a" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="210" cy="210" r="118" stroke="rgba(181,137,74,0.15)" stroke-width="0.75" stroke-dasharray="4 8"/>
         </g>
 
-        <!-- Main static ring — breathes -->
-        <circle class="main-ring" cx="210" cy="210" r="155" stroke="rgba(181,137,74,0.35)" stroke-width="0.75"/>
-
-        <!-- Crosshair lines -->
-        <g class="crosshair-group">
-          <line x1="210" y1="80" x2="210" y2="140" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
-          <line x1="210" y1="280" x2="210" y2="340" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
-          <line x1="80" y1="210" x2="140" y2="210" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
-          <line x1="280" y1="210" x2="340" y2="210" stroke="#b5894a" stroke-width="0.75" stroke-linecap="round"/>
+        <!-- === ORBITING ICONS (arc-ring-1 spins these) === -->
+        <g class="arc-ring-1">
+          <!-- 📷 Camera — top (0°) -->
+          <g transform="translate(210,55)">
+            <rect x="-14" y="-10" width="28" height="20" rx="3" fill="none" stroke="#d4a96a" stroke-width="1.5"/>
+            <circle cx="0" cy="2" r="6" fill="none" stroke="#d4a96a" stroke-width="1.2"/>
+            <rect x="-4" y="-10" width="8" height="4" rx="1" fill="none" stroke="#d4a96a" stroke-width="1"/>
+            <circle cx="10" cy="-6" r="1.5" fill="#d4a96a" opacity="0.7"/>
+          </g>
+          <!-- 💡 Studio Light — right (90°) -->
+          <g transform="translate(365,210)">
+            <polygon points="0,-12 10,8 -10,8" fill="none" stroke="#b5894a" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="0" y1="-14" x2="0" y2="-18" stroke="#b5894a" stroke-width="1.2"/>
+            <line x1="12" y1="-6" x2="15" y2="-9" stroke="#b5894a" stroke-width="1"/>
+            <line x1="-12" y1="-6" x2="-15" y2="-9" stroke="#b5894a" stroke-width="1"/>
+            <rect x="-6" y="8" width="12" height="4" rx="1" fill="none" stroke="#b5894a" stroke-width="1"/>
+          </g>
+          <!-- 🌐 Globe/Web — bottom (180°) -->
+          <g transform="translate(210,365)">
+            <circle cx="0" cy="0" r="12" fill="none" stroke="#c9973f" stroke-width="1.5"/>
+            <ellipse cx="0" cy="0" rx="6" ry="12" fill="none" stroke="#c9973f" stroke-width="1"/>
+            <line x1="-12" y1="0" x2="12" y2="0" stroke="#c9973f" stroke-width="1"/>
+            <line x1="-10" y1="-6" x2="10" y2="-6" stroke="#c9973f" stroke-width="0.75" opacity="0.6"/>
+            <line x1="-10" y1="6" x2="10" y2="6" stroke="#c9973f" stroke-width="0.75" opacity="0.6"/>
+          </g>
+          <!-- ⚙️ Tech/Gear — left (270°) -->
+          <g transform="translate(55,210)">
+            <circle cx="0" cy="0" r="7" fill="none" stroke="#9a7b3d" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="3" fill="none" stroke="#9a7b3d" stroke-width="1"/>
+            <line x1="0" y1="-10" x2="0" y2="-13" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="10" x2="0" y2="13" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-10" y1="0" x2="-13" y2="0" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="0" x2="13" y2="0" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-7" y1="-7" x2="-9" y2="-9" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="7" y1="7" x2="9" y2="9" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="7" y1="-7" x2="9" y2="-9" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-7" y1="7" x2="-9" y2="9" stroke="#9a7b3d" stroke-width="2" stroke-linecap="round"/>
+          </g>
         </g>
 
-        <!-- Cardinal tick marks on main ring -->
-        <g opacity="0.4">
-          <line x1="210" y1="55" x2="210" y2="70" stroke="#b5894a" stroke-width="1"/>
-          <line x1="365" y1="210" x2="350" y2="210" stroke="#b5894a" stroke-width="1"/>
-          <line x1="210" y1="365" x2="210" y2="350" stroke="#b5894a" stroke-width="1"/>
-          <line x1="55" y1="210" x2="70" y2="210" stroke="#b5894a" stroke-width="1"/>
+        <!-- === INNER ORBIT ICONS (arc-ring-2 counter-spins) === -->
+        <g class="arc-ring-2">
+          <!-- 🎬 Clapperboard — inner top-right -->
+          <g transform="translate(303,117)">
+            <rect x="-10" y="-8" width="20" height="16" rx="2" fill="none" stroke="#d4a96a" stroke-width="1.2"/>
+            <rect x="-10" y="-13" width="20" height="7" rx="2" fill="none" stroke="#d4a96a" stroke-width="1.2"/>
+            <line x1="-5" y1="-13" x2="-3" y2="-6" stroke="#d4a96a" stroke-width="1"/>
+            <line x1="2" y1="-13" x2="4" y2="-6" stroke="#d4a96a" stroke-width="1"/>
+          </g>
+          <!-- 📱 Mobile/Social — inner bottom-right -->
+          <g transform="translate(303,303)">
+            <rect x="-8" y="-13" width="16" height="26" rx="3" fill="none" stroke="#b5894a" stroke-width="1.2"/>
+            <circle cx="0" cy="9" r="2" fill="none" stroke="#b5894a" stroke-width="1"/>
+            <line x1="-4" y1="-7" x2="4" y2="-7" stroke="#b5894a" stroke-width="1" opacity="0.6"/>
+            <line x1="-4" y1="-3" x2="4" y2="-3" stroke="#b5894a" stroke-width="0.75" opacity="0.4"/>
+            <line x1="-4" y1="1" x2="2" y2="1" stroke="#b5894a" stroke-width="0.75" opacity="0.4"/>
+          </g>
         </g>
 
-        <!-- Minor tick marks -->
-        <g opacity="0.2">
-          <line x1="320" y1="100" x2="312" y2="108" stroke="#b5894a" stroke-width="0.75"/>
-          <line x1="320" y1="320" x2="312" y2="312" stroke="#b5894a" stroke-width="0.75"/>
-          <line x1="100" y1="320" x2="108" y2="312" stroke="#b5894a" stroke-width="0.75"/>
-          <line x1="100" y1="100" x2="108" y2="108" stroke="#b5894a" stroke-width="0.75"/>
+        <!-- Center: KaYu Media lens / shutter -->
+        <circle cx="210" cy="210" r="38" fill="none" stroke="rgba(181,137,74,0.5)" stroke-width="1.5"/>
+        <circle cx="210" cy="210" r="26" fill="none" stroke="rgba(181,137,74,0.3)" stroke-width="1"/>
+        <!-- Shutter blades -->
+        <g opacity="0.55" stroke="#b5894a" stroke-width="1.2" stroke-linecap="round">
+          <path d="M210,184 Q218,196 210,210 Q202,196 210,184"/>
+          <path d="M233,197 Q220,202 210,210 Q218,196 233,197"/>
+          <path d="M226,226 Q214,218 210,210 Q221,211 226,226"/>
+          <path d="M194,226 Q203,215 210,210 Q202,222 194,226"/>
+          <path d="M187,197 Q200,202 210,210 Q199,215 187,197"/>
         </g>
-
-        <!-- Center dot -->
-        <circle class="center-dot" cx="210" cy="210" r="6" fill="#b5894a" opacity="0.85"/>
-        <circle cx="210" cy="210" r="16" stroke="rgba(181,137,74,0.3)" stroke-width="1" fill="none"/>
-        <circle cx="210" cy="210" r="30" stroke="rgba(181,137,74,0.15)" stroke-width="0.75" fill="none"/>
+        <circle class="center-dot" cx="210" cy="210" r="7" fill="#b5894a" opacity="0.9" filter="url(#glow)"/>
       </svg>
 
     </div>
 
-    <div class="floating-badge">
+    <a href="#reviews" class="floating-badge">
       <strong>5.0 <span class="stars">★★★★★</span></strong>
       12 Google Reviews
-    </div>
+    </a>
   </div>
 </section>
 
@@ -867,31 +962,37 @@ index_html = '''<!DOCTYPE html>
   <p class="contact-sub">Based in Durban, South Africa · Available for bookings across the region</p>
   <div class="contact-grid">
     <div class="contact-item">
-      <span class="contact-item-label">Phone</span>
+      <span class="contact-item-label">📞 Call</span>
       <span class="contact-item-value">
         <a href="tel:0739452021">073 945 2021</a>
       </span>
+    </div>
+    <div class="contact-divider"></div>
+    <div class="contact-item">
+      <span class="contact-item-label">💬 WhatsApp</span>
       <span class="contact-item-value">
-        <a href="tel:0710059685">071 005 9685</a>
+        <a href="https://wa.me/27710059685">071 005 9685</a>
       </span>
     </div>
     <div class="contact-divider"></div>
     <div class="contact-item">
-      <span class="contact-item-label">Email</span>
+      <span class="contact-item-label">✉️ Email</span>
       <span class="contact-item-value">
-        <a href="mailto:kayumedia01@gmail.com">kayumedia01@gmail.com</a>
+        <a href="mailto:admin@kayumedia.co.za">admin@kayumedia.co.za</a>
       </span>
     </div>
     <div class="contact-divider"></div>
     <div class="contact-item">
-      <span class="contact-item-label">Instagram</span>
+      <span class="contact-item-label">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px;opacity:0.7"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram
+      </span>
       <span class="contact-item-value">
         <a href="https://instagram.com/kayumedia01" target="_blank">@kayumedia01</a>
       </span>
     </div>
     <div class="contact-divider"></div>
     <div class="contact-item">
-      <span class="contact-item-label">Location</span>
+      <span class="contact-item-label">📍 Location</span>
       <span class="contact-item-value">Durban, South Africa</span>
     </div>
   </div>
